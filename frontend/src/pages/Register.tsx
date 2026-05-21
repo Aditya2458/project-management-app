@@ -21,10 +21,13 @@ function Register() {
       await api.post("/auth/register/", formData);
       alert("Registration Successful");
       navigate("/");
-    } catch (error) {
-      console.log(error);
-      alert("Registration Failed");
-    }
+    } catch (error: any) {
+      console.log("ERROR:", error);
+      console.log("DATA:", error.response?.data);
+      console.log("STATUS:", error.response?.status);
+
+     alert(JSON.stringify(error.response?.data));
+}
   };
 
   return (
