@@ -1,73 +1,84 @@
-# 🚀 Project Management App
+# 🚀 ProjectFlow – Full Stack Project Management App
 
-A full-stack **Project Management Application** built with **Django REST Framework**, **React + TypeScript**, **Tailwind CSS**, and **Docker**.
+A modern full-stack **Project Management Application** built using **Django REST Framework**, **React + TypeScript**, **Tailwind CSS**, **JWT Authentication**, **Docker**, **Vercel**, and **Render**.
 
-This application enables authenticated users to create and manage projects and tasks securely using JWT-based authentication with a clean modern dashboard UI.
+This app allows users to securely manage projects and tasks with authentication, protected routes, responsive UI, and RESTful APIs.
 
 ---
 
-# 📌 Features
+# 🌐 Live Demo
+
+### Frontend (Vercel)
+🔗 https://project-management-app-git-main-adityas-projects-ed3eaaae.vercel.app/register
+
+### Backend (Render API)
+🔗 https://project-management-app-1-n056.onrender.com
+
+---
+
+# ✨ Features
 
 ## 🔐 Authentication
 - User Registration
 - User Login
-- JWT Authentication (SimpleJWT)
+- JWT Authentication
+- Token-based Authorization
+- Persistent Login (LocalStorage)
+- Logout
 - Protected Routes
-- Persistent auth using localStorage
-- Logout functionality
 
 ---
 
 ## 📁 Project Management
 - Create Project
-- Fetch User Projects
+- Fetch All Projects
 - Delete Project
-- View Project Details
-- Project-specific task navigation
-- Status management
+- Project Details View
+- Status Tracking
 
-Project Status:
+### Project Status
 - Active
 - Completed
 
 ---
 
 ## 📝 Task Management
-- Add Task
+- Create Task
 - Fetch Tasks
 - Delete Task
-- Filter Tasks by status
-- Due date support
-- Project-linked task organization
+- Task filtering
+- Due dates
+- Project-linked tasks
 
-Task Status:
+### Task Status
 - Todo
 - In Progress
 - Done
 
 ---
 
-## 🎨 Frontend Features
-- Modern SaaS-style UI
-- Fully responsive design
-- Protected dashboard
-- Task management page
-- Context-based auth state
+## 🎨 Frontend
+- Responsive UI
+- React Router
+- Protected navigation
+- Context API authentication
 - Tailwind CSS styling
-- Clean reusable routing structure
+- Reusable architecture
+- SPA routing with Vercel rewrites
 
 ---
 
-## ⚙️ Backend Features
-- RESTful APIs
-- JWT authentication
-- CRUD operations
+## ⚙️ Backend
+- Django REST Framework
+- JWT (SimpleJWT)
+- CRUD APIs
 - Pagination
-- Search & ordering
+- Search & Ordering
+- User-specific data access
 - Validation
-- User-specific access control
-- Django Admin panel
-- Dockerized setup
+- CORS support
+- WhiteNoise static handling
+- Production-ready config
 
 ---
 
@@ -76,39 +87,41 @@ Task Status:
 ## Frontend
 - React.js
 - TypeScript
-- Tailwind CSS
 - Vite
 - Axios
 - React Router DOM
+- Tailwind CSS
 
 ## Backend
 - Python
 - Django
 - Django REST Framework
 - SimpleJWT
-- Django CORS Headers
 - Django Filter
+- WhiteNoise
+- Gunicorn
 
 ## Database
-- SQLite (Development)
-- PostgreSQL-ready architecture
+- SQLite (development/demo)
 
-## DevOps / Containerization
+## Deployment
+- Vercel (Frontend)
+- Render (Backend)
 - Docker
-- Docker Compose
+- GitHub
 
 ---
 
-# 📂 Project Structure
+# 📂 Folder Structure
 
 ```bash
 project-management-app/
 │
 ├── backend/
-│   ├── accounts/              # Authentication APIs
-│   ├── projects/              # Project CRUD
-│   ├── tasks/                 # Task CRUD
-│   ├── config/                # Django config
+│   ├── accounts/                # Auth APIs
+│   ├── projects/                # Project APIs
+│   ├── tasks/                   # Task APIs
+│   ├── config/                  # Django settings & urls
 │   ├── Dockerfile
 │   ├── requirements.txt
 │   └── manage.py
@@ -117,31 +130,26 @@ project-management-app/
 │   ├── src/
 │   │   ├── api/
 │   │   │   └── axios.ts
-│   │   │
 │   │   ├── context/
 │   │   │   └── AuthContext.tsx
-│   │   │
 │   │   ├── pages/
 │   │   │   ├── Login.tsx
 │   │   │   ├── Register.tsx
 │   │   │   ├── Dashboard.tsx
 │   │   │   └── ProjectDetails.tsx
-│   │   │
 │   │   ├── routes/
 │   │   │   └── PrivateRoute.tsx
-│   │   │
 │   │   ├── App.tsx
-│   │   ├── main.tsx
-│   │   └── index.css
+│   │   └── main.tsx
 │   │
-│   ├── Dockerfile
+│   ├── public/
+│   ├── vercel.json
 │   ├── package.json
 │   └── vite.config.ts
 │
 ├── docker-compose.yml
-├── .dockerignore
-├── .gitignore
-└── README.md
+├── README.md
+└── .gitignore
 ```
 
 ---
@@ -150,213 +158,136 @@ project-management-app/
 
 1. User registers
 2. User logs in
-3. Backend returns JWT token
-4. Token stored in localStorage
-5. Axios automatically injects Authorization header
+3. JWT token returned
+4. Token stored in LocalStorage
+5. Axios injects Authorization header
 6. Protected routes validate session
-7. Logout clears token
+7. User-specific project/task access
 
 ---
 
 # 📡 API Endpoints
 
 ## Auth
-
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | POST | `/api/auth/register/` | Register user |
-| POST | `/api/auth/login/` | Login |
-| POST | `/api/auth/refresh/` | Refresh token |
+| POST | `/api/auth/login/` | Login user |
 
 ---
 
 ## Projects
-
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | `/api/projects/` | Fetch projects |
+| GET | `/api/projects/` | Get projects |
 | POST | `/api/projects/` | Create project |
-| GET | `/api/projects/:id/` | Single project |
-| PUT | `/api/projects/:id/` | Update project |
 | DELETE | `/api/projects/:id/` | Delete project |
 
 ---
 
 ## Tasks
-
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | `/api/projects/:id/tasks/` | Fetch project tasks |
-| POST | `/api/projects/:id/tasks/` | Create task |
+| GET | `/api/projects/:id/tasks/` | Get project tasks |
+| POST | `/api/projects/:id/tasks/` | Add task |
 | DELETE | `/api/tasks/:id/` | Delete task |
-| GET | `/api/projects/:id/tasks/?status=done` | Filter tasks |
 
 ---
 
-# 🚀 Local Setup
+# 🐳 Docker Setup
 
-## Clone Repository
-
+### Run locally
 ```bash
-git clone https://github.com/YOUR_USERNAME/project-management-app.git
-cd project-management-app
+docker compose up --build
+```
+
+### Stop
+```bash
+docker compose down
 ```
 
 ---
 
-# 🖥 Backend Setup
+# 💻 Local Development
 
+## Backend
 ```bash
 cd backend
 python -m venv venv
-```
-
-### Windows
-```bash
-venv\Scripts\activate
-```
-
-### Linux / Mac
-```bash
-source venv/bin/activate
-```
-
-Install dependencies:
-
-```bash
+venv\Scripts\activate   # Windows
 pip install -r requirements.txt
-```
-
-Run migrations:
-
-```bash
-python manage.py makemigrations
 python manage.py migrate
-```
-
-Create admin:
-
-```bash
-python manage.py createsuperuser
-```
-
-Start server:
-
-```bash
 python manage.py runserver
 ```
 
-Backend:
+Runs on:
 ```bash
 http://localhost:8000
 ```
 
 ---
 
-# 💻 Frontend Setup
-
+## Frontend
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-Frontend:
+Runs on:
 ```bash
 http://localhost:5173
 ```
-
----
-
-# 🐳 Docker Setup
-
-Run complete app using Docker:
-
-```bash
-docker compose up --build
-```
-
-Frontend:
-```bash
-http://localhost:5173
-```
-
-Backend:
-```bash
-http://localhost:8000
-```
-
-Admin:
-```bash
-http://localhost:8000/admin
-```
-
-Stop containers:
-
-```bash
-docker compose down
-```
-
-Rebuild:
-
-```bash
-docker compose up --build
-```
-
----
-
-# 🧠 Concepts Implemented
-
-- JWT Authentication
-- Protected Routes
-- React Context API
-- CRUD Operations
-- Project → Task relationship
-- REST API design
-- Axios interceptors
-- Pagination
-- Search & filtering
-- User-based authorization
-- Docker containerization
-- Full-stack architecture
-- TypeScript typing
-- Responsive UI
 
 ---
 
 # 🔒 Security
-
-- JWT-based auth
+- JWT-based authentication
 - Protected frontend routes
 - Authorization headers
-- User-specific queryset filtering
+- User-specific querysets
 - Secure password hashing
-- Auth-protected APIs
+- CORS handling
+
+---
+
+# 🧠 Concepts Used
+- REST API Design
+- Authentication & Authorization
+- CRUD Operations
+- React Context API
+- Axios Interceptors
+- Protected Routes
+- SPA Routing
+- Dockerization
+- Full-stack deployment
+- TypeScript typing
+- Pagination
+- Filtering
+- Search & ordering
 
 ---
 
 # 📈 Future Improvements
-
 - Edit Project
 - Edit Task
-- Kanban Board
+- Drag & Drop Kanban Board
 - Dark Mode
 - Notifications
-- PostgreSQL container
-- Nginx reverse proxy
-- CI/CD GitHub Actions
-- Unit + integration tests
-- Role-based permissions
+- PostgreSQL
+- Redis caching
+- Role-based access
+- Unit tests
+- CI/CD pipeline
 
 ---
 
-# Known Limitations
-
-- SQLite used in development
+# ⚠ Known Limitations
+- SQLite for demo environment
 - No task edit UI
 - No project edit UI
+- No file uploads
 - No refresh token rotation
-- No file upload support
 
 ---
 
@@ -365,10 +296,9 @@ docker compose up --build
 **Aditya**  
 Python Developer | Full Stack Developer
 
-GitHub: `https://github.com/Aditya2458`
+GitHub: https://github.com/Aditya2458
 
---
+---
 
-# 📄 License
-
-This project is created for learning, portfolio, and assessment purposes.
+# ⭐ If you like this project
+Give it a star on GitHub 🚀
