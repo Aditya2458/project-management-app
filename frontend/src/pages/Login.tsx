@@ -19,7 +19,7 @@ function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await api.post("/auth/login/", formData);
+      const response = await api.post("api/auth/login/", formData);
       login(response.data.access);
       navigate("/dashboard");
     } catch (error) {
