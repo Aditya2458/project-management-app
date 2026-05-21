@@ -1,57 +1,73 @@
 # 🚀 Project Management App
 
-A full-stack Project Management Application built using **Django REST Framework**, **React.js**, **TypeScript**, and **Tailwind CSS**.  
-This app allows authenticated users to manage projects and tasks with secure JWT-based authentication.
+A full-stack **Project Management Application** built with **Django REST Framework**, **React + TypeScript**, **Tailwind CSS**, and **Docker**.
+
+This application enables authenticated users to create and manage projects and tasks securely using JWT-based authentication with a clean modern dashboard UI.
 
 ---
 
-## 📌 Features
+# 📌 Features
 
-### 🔐 Authentication
+## 🔐 Authentication
 - User Registration
 - User Login
-- JWT Authentication
+- JWT Authentication (SimpleJWT)
 - Protected Routes
-- Token-based session handling
+- Persistent auth using localStorage
 - Logout functionality
 
-### 📁 Projects
+---
+
+## 📁 Project Management
 - Create Project
 - Fetch User Projects
 - Delete Project
-- View project-specific tasks
-- Project status:
-  - Active
-  - Completed
+- View Project Details
+- Project-specific task navigation
+- Status management
 
-### 📝 Tasks
-- Create Task
+Project Status:
+- Active
+- Completed
+
+---
+
+## 📝 Task Management
+- Add Task
 - Fetch Tasks
 - Delete Task
 - Filter Tasks by status
-- Task status:
-  - Todo
-  - In Progress
-  - Done
 - Due date support
+- Project-linked task organization
 
-### 🎨 Frontend
-- Modern responsive UI
+Task Status:
+- Todo
+- In Progress
+- Done
+
+---
+
+## 🎨 Frontend Features
+- Modern SaaS-style UI
+- Fully responsive design
+- Protected dashboard
+- Task management page
+- Context-based auth state
 - Tailwind CSS styling
-- Dashboard
-- Task details page
-- Form handling
-- Protected navigation
+- Clean reusable routing structure
 
-### ⚙️ Backend
+---
+
+## ⚙️ Backend Features
 - RESTful APIs
-- Django REST Framework
-- JWT auth using SimpleJWT
-- Validation
+- JWT authentication
+- CRUD operations
 - Pagination
 - Search & ordering
-- User-specific data access
-- Django Admin Panel
+- Validation
+- User-specific access control
+- Django Admin panel
+- Dockerized setup
 
 ---
 
@@ -61,20 +77,25 @@ This app allows authenticated users to manage projects and tasks with secure JWT
 - React.js
 - TypeScript
 - Tailwind CSS
+- Vite
 - Axios
 - React Router DOM
-- Vite
 
 ## Backend
 - Python
 - Django
 - Django REST Framework
 - SimpleJWT
-- CORS Headers
+- Django CORS Headers
+- Django Filter
 
 ## Database
-- SQLite (development)
-- PostgreSQL compatible
+- SQLite (Development)
+- PostgreSQL-ready architecture
+
+## DevOps / Containerization
+- Docker
+- Docker Compose
 
 ---
 
@@ -84,12 +105,13 @@ This app allows authenticated users to manage projects and tasks with secure JWT
 project-management-app/
 │
 ├── backend/
-│   ├── accounts/              # Auth APIs
+│   ├── accounts/              # Authentication APIs
 │   ├── projects/              # Project CRUD
 │   ├── tasks/                 # Task CRUD
-│   ├── config/                # Django settings & routes
-│   ├── manage.py
-│   └── requirements.txt
+│   ├── config/                # Django config
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   └── manage.py
 │
 ├── frontend/
 │   ├── src/
@@ -112,30 +134,33 @@ project-management-app/
 │   │   ├── main.tsx
 │   │   └── index.css
 │   │
+│   ├── Dockerfile
 │   ├── package.json
 │   └── vite.config.ts
 │
+├── docker-compose.yml
+├── .dockerignore
 ├── .gitignore
 └── README.md
 ```
 
 ---
 
-# 🔑 Authentication Flow
+# 🔐 Authentication Flow
 
 1. User registers
 2. User logs in
-3. Backend returns JWT access token
+3. Backend returns JWT token
 4. Token stored in localStorage
-5. Axios interceptor automatically injects token
-6. Protected routes validate auth
+5. Axios automatically injects Authorization header
+6. Protected routes validate session
 7. Logout clears token
 
 ---
 
 # 📡 API Endpoints
 
-## Authentication
+## Auth
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
@@ -149,9 +174,9 @@ project-management-app/
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | `/api/projects/` | Get all user projects |
+| GET | `/api/projects/` | Fetch projects |
 | POST | `/api/projects/` | Create project |
-| GET | `/api/projects/:id/` | Get single project |
+| GET | `/api/projects/:id/` | Single project |
 | PUT | `/api/projects/:id/` | Update project |
 | DELETE | `/api/projects/:id/` | Delete project |
 
@@ -161,16 +186,16 @@ project-management-app/
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | `/api/projects/:id/tasks/` | Get project tasks |
+| GET | `/api/projects/:id/tasks/` | Fetch project tasks |
 | POST | `/api/projects/:id/tasks/` | Create task |
 | DELETE | `/api/tasks/:id/` | Delete task |
 | GET | `/api/projects/:id/tasks/?status=done` | Filter tasks |
 
 ---
 
-# ⚡ Setup Instructions
+# 🚀 Local Setup
 
-## 1. Clone Repository
+## Clone Repository
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/project-management-app.git
@@ -181,147 +206,132 @@ cd project-management-app
 
 # 🖥 Backend Setup
 
-## Go to backend
-
 ```bash
 cd backend
+python -m venv venv
 ```
 
-## Create virtual environment
-
 ### Windows
-
 ```bash
-python -m venv venv
 venv\Scripts\activate
 ```
 
-### Linux/Mac
-
+### Linux / Mac
 ```bash
-python3 -m venv venv
 source venv/bin/activate
 ```
 
----
-
-## Install dependencies
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-## Run migrations
+Run migrations:
 
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
----
-
-## Create superuser
+Create admin:
 
 ```bash
 python manage.py createsuperuser
 ```
 
----
-
-## Start backend server
+Start server:
 
 ```bash
 python manage.py runserver
 ```
 
-Backend runs at:
-
+Backend:
 ```bash
-http://127.0.0.1:8000/
+http://localhost:8000
 ```
 
 ---
 
 # 💻 Frontend Setup
 
-## Go to frontend
-
 ```bash
-cd ../frontend
-```
-
----
-
-## Install packages
-
-```bash
+cd frontend
 npm install
-```
-
----
-
-## Start frontend
-
-```bash
 npm run dev
 ```
 
-Frontend runs at:
-
+Frontend:
 ```bash
-http://localhost:5173/
+http://localhost:5173
 ```
 
 ---
 
-# 🔐 Demo Flow
+# 🐳 Docker Setup
 
-### Register
-- Create new account
+Run complete app using Docker:
 
-### Login
-- Authenticate with JWT
+```bash
+docker compose up --build
+```
 
-### Dashboard
-- Create project
-- View projects
-- Delete project
-- Navigate to task page
+Frontend:
+```bash
+http://localhost:5173
+```
 
-### Project Details
-- Add task
-- Delete task
-- Filter tasks
+Backend:
+```bash
+http://localhost:8000
+```
+
+Admin:
+```bash
+http://localhost:8000/admin
+```
+
+Stop containers:
+
+```bash
+docker compose down
+```
+
+Rebuild:
+
+```bash
+docker compose up --build
+```
 
 ---
 
-# 🧠 Key Concepts Used
+# 🧠 Concepts Implemented
 
 - JWT Authentication
-- Axios Interceptors
 - Protected Routes
 - React Context API
 - CRUD Operations
-- Relational Data (Project → Tasks)
-- TypeScript typing
+- Project → Task relationship
 - REST API design
+- Axios interceptors
+- Pagination
+- Search & filtering
 - User-based authorization
-- Tailwind responsive UI
-- DRF pagination
-- Search & ordering
+- Docker containerization
+- Full-stack architecture
+- TypeScript typing
+- Responsive UI
 
 ---
 
 # 🔒 Security
 
-- JWT auth
+- JWT-based auth
 - Protected frontend routes
-- User-specific queryset filtering
-- Secure password hashing (Django)
 - Authorization headers
-- Auth-protected CRUD endpoints
+- User-specific queryset filtering
+- Secure password hashing
+- Auth-protected APIs
 
 ---
 
@@ -329,24 +339,24 @@ http://localhost:5173/
 
 - Edit Project
 - Edit Task
-- Drag & Drop Kanban Board
+- Kanban Board
 - Dark Mode
 - Notifications
+- PostgreSQL container
+- Nginx reverse proxy
+- CI/CD GitHub Actions
+- Unit + integration tests
 - Role-based permissions
-- PostgreSQL production config
-- Docker support
-- Deployment pipeline
-- Unit testing (Jest + Pytest)
 
 ---
 
 # Known Limitations
 
-- No project editing UI yet
-- No task editing UI
-- SQLite used for development
-- No refresh token auto-rotation
-- No file attachments
+- SQLite used in development
+- No task edit UI
+- No project edit UI
+- No refresh token rotation
+- No file upload support
 
 ---
 
@@ -355,11 +365,10 @@ http://localhost:5173/
 **Aditya**  
 Python Developer | Full Stack Developer
 
-GitHub: https://github.com/Aditya2458
-
+GitHub: `https://github.com/Aditya2458`
 
 ---
 
 # 📄 License
 
-This project is for educational / assessment purposes.  
+This project is created for learning, portfolio, and assessment purposes.
