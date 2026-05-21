@@ -1,0 +1,17 @@
+import os
+import sys
+
+# Add backend path
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BACKEND_DIR = os.path.join(BASE_DIR, "backend")
+
+sys.path.insert(0, BACKEND_DIR)
+
+os.environ.setdefault(
+    "DJANGO_SETTINGS_MODULE",
+    "config.settings"
+)
+
+from django.core.wsgi import get_wsgi_application
+
+app = get_wsgi_application()
